@@ -8,7 +8,7 @@
 class SimpleScene : public OgreScene {
 
 public:
-     SimpleScene(const char* fileName) : OgreScene(fileName){};
+     SimpleScene();
      ~SimpleScene();
      bool update(float);
      bool onLoad();

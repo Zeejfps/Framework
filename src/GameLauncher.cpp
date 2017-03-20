@@ -4,7 +4,7 @@
 int main() {
      try {
           Engine::init();
-          Engine::loadScene(new SimpleScene("./assets/scenes/Simple.scene"));
+          Engine::loadScene(new SimpleScene());
           Engine::launch();
      }
      catch(...) {

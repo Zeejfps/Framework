@@ -6,7 +6,6 @@ OISInputHandler::OISInputHandler(Ogre::RenderWindow* pWindow) {
      OIS::ParamList pl;
      std::ostringstream windowHndStr;
 
-     std::cout << "not null?\n";
      pWindow->getCustomAttribute("WINDOW", &mWindowHnd);
      windowHndStr << mWindowHnd;
      pl.insert(std::make_pair(std::string("WINDOW"), windowHndStr.str()));
@@ -91,7 +90,6 @@ bool OISInputHandler::mouseMoved(const OIS::MouseEvent &evt) {
 }
 
 bool OISInputHandler::mousePressed(const OIS::MouseEvent &evt, OIS::MouseButtonID id) {
-     std::cout << "Mouse button pressed?\n";
      return true;
 }
 
@@ -100,7 +98,6 @@ bool OISInputHandler::mouseReleased(const OIS::MouseEvent &evt, OIS::MouseButton
 }
 
 void OISInputHandler::windowResized(Ogre::RenderWindow* rw) {
-     std::cout << "Resized\n";
      unsigned int width, height, depth;
      int left, top;
      rw->getMetrics(width, height, depth, left, top);

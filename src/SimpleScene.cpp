@@ -1,13 +1,22 @@
 #include "Engine.h"
 #include "SimpleScene.h"
-#include "AnotherScene.h"
+#include "SpaceScene.h"
 #include <OgreEntity.h>
+
+SimpleScene::SimpleScene():
+OgreScene("./assets/scenes/Simple.scene")
+{
+
+}
 
 SimpleScene::~SimpleScene() {
 
 }
 
 bool SimpleScene::onLoad() {
+     m_sceneManager->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
+     m_sceneManager->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
+
      mCameraNode = m_sceneManager->getSceneNode("CameraNode");
 
      mPlatformNode = m_sceneManager->getSceneNode("PlatformNode");
@@ -57,7 +66,7 @@ bool SimpleScene::update(float dt) {
      }
 
      if (Engine::Input()->wasButtonPressed(VK_A)) {
-          Engine::loadScene(new AnotherScene("./assets/scenes/Another.scene"));
+          Engine::loadScene(new SpaceScene());
      }
 
      return true;
