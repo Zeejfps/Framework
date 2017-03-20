@@ -1,0 +1,25 @@
+<scene name="Space">
+     <resources>
+          <paths>
+               <path dir="./assets/models"/>
+               <path dir="./assets/materials"/>
+          </paths>
+          <meshes>
+
+          </meshes>
+     </resources>
+     <nodes>
+          <node>
+               <light name="MainLight">
+                    <position x="20" y="80" z="50"/>
+               </light>
+          </node>
+          <node name="CameraNode">
+               <camera name="MainCamera">
+                    <clipping nearClipDistance="0.1" farClipDistance="100"/>
+                    <position x="0" y="7.5" z="14"/>
+                    <lookAt x="0" y="0" z="0"/>
+               </camera>
+          </node>
+     </nodes>
+</scene>
