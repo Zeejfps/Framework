@@ -9,6 +9,8 @@ public:
      ~SpaceScene();
      bool onLoad();
      bool update(float);
+private:
+     Ogre::SceneNode* m_player;
 };
 
 #endif /* SPACE_SCENE_H */

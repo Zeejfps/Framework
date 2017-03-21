@@ -4,6 +4,13 @@
                <path dir="./assets/models"/>
                <path dir="./assets/materials"/>
           </paths>
+          <materials>
+               <material file="Default-Material.material"/>
+               <material file="Ground-Material.material"/>
+               <material file="Monkey-Material.material"/>
+               <material file="Tree-Material.material"/>
+               <material file="Wheel-Material.material"/>
+          </materials>
           <meshes>
                <mesh file="Ground.mesh"/>
                <mesh file="Truck.mesh"/>
@@ -23,9 +30,9 @@
                </light>
           </node>
           <node name="CameraNode">
+               <translate x="0" y="7.5" z="14"/>
                <camera name="MainCamera">
                     <clipping nearClipDistance="0.1" farClipDistance="100"/>
-                    <position x="0" y="7.5" z="14"/>
                     <lookAt x="0" y="0" z="0"/>
                </camera>
           </node>
@@ -59,24 +66,24 @@
                          <entity meshFile="Truck.mesh" material="Default-Material"/>
                          <node name="Hood">
                          	<translate x="0" y="0.43" z="1.33418"/>
-                         	<animation name="hood_open_anim" len="9.95" interp="linear">
+                         	<animation name="hood_open_anim" len="5" interp="linear">
                          		<keyframe t="0">
                          			<translate x="0" y="0.43" z="1.33418"/>
                					<rotate a="0" x="1" y="0" z="0"/>
                          		</keyframe>
-                         		<keyframe t="2.95">
+                         		<keyframe t="0.10">
                          			<translate x="0" y="0.43" z="1.33418"/>
                					<rotate a="0" x="1" y="0" z="0"/>
                          		</keyframe>
-                         		<keyframe t="3.05">
+                         		<keyframe t="0.15">
                          			<translate x="0" y="0.43" z="1.33418"/>
                					<rotate a="-85" x="1" y="0" z="0"/>
                          		</keyframe>
-                         		<keyframe t="7">
+                         		<keyframe t="3">
                          			<translate x="0" y="0.43" z="1.33418"/>
                					<rotate a="-85" x="1" y="0" z="0"/>
                          		</keyframe>
-                         		<keyframe t="7.5">
+                         		<keyframe t="5">
                          			<translate x="0" y="0.43" z="1.33418"/>
                					<rotate a="0" x="1" y="0" z="0"/>
                          		</keyframe>

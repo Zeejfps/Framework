@@ -270,7 +270,6 @@ bool parseResources(
      }
 
      rgm.initialiseResourceGroup(pSceneName);
-     rgm.loadResourceGroup(pSceneName);
      return true;
 }
 
@@ -293,7 +292,8 @@ bool parseNodes(
 
 bool parseScene (
      const char*              pFileName,
-     Ogre::SceneManager*      pSceneManager
+     Ogre::SceneManager*      pSceneManager,
+     const char*              pSceneName
 ){
      std::cout << "Parsing scene: " << pFileName << "\n";
      TiXmlDocument doc(pFileName);
@@ -302,16 +302,12 @@ bool parseScene (
      }
 
      TiXmlElement* scene = doc.RootElement();
-     const char* sceneName = scene->Attribute("name");
-     if (sceneName == NULL) {
-          return false;
-     }
 
      std::cout << "* Parsing resources...\n";
      //Parse resources
      TiXmlElement* resources = scene->FirstChildElement("resources");
      if (resources != NULL) {
-          if (!parseResources(resources, sceneName)) {
+          if (!parseResources(resources, pSceneName)) {
                return false;
           }
      }

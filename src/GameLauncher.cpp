@@ -1,4 +1,5 @@
 #include "Engine.h"
+#include "SpaceScene.h"
 #include "SimpleScene.h"
 
 int main() {
@@ -7,7 +8,8 @@ int main() {
           Engine::loadScene(new SimpleScene());
           Engine::launch();
      }
-     catch(...) {
+     catch(Ogre::Exception e) {
+          std::cout << e.getDescription() << "\n";
           return 1;
      }
      return 0;

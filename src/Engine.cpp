@@ -23,13 +23,7 @@ void Engine::launch() {
 }
 
 void Engine::loadScene(OgreScene* scene) {
-     std::cout << "Loading scene...\n";
-     if (m_renderer->loadScene(scene)) {
-          std::cout << "Scene loaded!\n";
-     }
-     else {
-          std::cout << "Failed to load scene!\n";
-     }
+     m_renderer->loadScene(scene);
 }
 
 OgreRenderer* Engine::Renderer() {

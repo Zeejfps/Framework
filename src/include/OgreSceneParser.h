@@ -5,7 +5,8 @@
 
 bool parseScene (
      const char           *pFileName,
-     Ogre::SceneManager   *pSceneManager
+     Ogre::SceneManager   *pSceneManager,
+     const char           *pSceneName
 );
 
 #endif /* OGRE_SCENE_PARSER_H */

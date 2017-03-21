@@ -14,6 +14,7 @@ enum Button {
      VK_S,
      VK_D,
      VK_W,
+     VK_SPACE,
 };
 
 class InputHandler {

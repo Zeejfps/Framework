@@ -122,6 +122,8 @@ OIS::KeyCode OISInputHandler::mapButtonToKey(Button button) {
                return OIS::KC_D;
           case VK_W:
                return OIS::KC_W;
+          case VK_SPACE:
+               return OIS::KC_SPACE;
           default:
                return OIS::KC_UNASSIGNED;
      }

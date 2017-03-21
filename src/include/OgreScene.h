@@ -6,9 +6,10 @@
 
 class OgreScene {
 public:
-     OgreScene(const char*);
+     OgreScene(const char* fileName, const char* sceneName);
      virtual ~OgreScene();
-     virtual bool load(Ogre::Root*);
+     bool load(Ogre::Root*);
+     void unload();
 
      // Functions needed to be overriden
      virtual bool update(float) = 0;
@@ -16,9 +17,10 @@ public:
 
      // Getters
      Ogre::SceneManager* getSceneManager();
-     
+
 protected:
      Ogre::SceneManager* m_sceneManager;
+     const char* m_sceneName;
 
 private:
      // Member variables
