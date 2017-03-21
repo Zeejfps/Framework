@@ -48,7 +48,8 @@ bool SimpleScene::onLoad() {
      entity = (Ogre::Entity*)node->getAttachedObject("Spring");
      mAnimations[4] = entity->getAnimationState("spring");
      mAnimations[4]->setLoop(false);
-     mAnimations[4]->setEnabled(false);
+     mAnimations[4]->setEnabled(true);
+     mAnimations[4]->setTimePosition(7);
 
      return true;
 }
@@ -59,8 +60,9 @@ bool SimpleScene::update(float dt) {
           mAnimations[3]->setEnabled(false);
      }
 
-     if(mAnimations[4]->getLength()==mAnimations[4]->getTimePosition()) {
-        mAnimations[4]->setEnabled(false);
+     if(mAnimations[4]->getTimePosition() >= 7) {
+          mAnimations[4]->setTimePosition(7);
+          //mAnimations[4]->setEnabled(false);
      }
 
      mPlatformNode->rotate(Ogre::Vector3::UNIT_Y, Ogre::Degree(25 * dt));
