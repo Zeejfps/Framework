@@ -71,11 +71,11 @@
                          			<translate x="0" y="0.43" z="1.33418"/>
                					<rotate a="0" x="1" y="0" z="0"/>
                          		</keyframe>
-                         		<keyframe t="0.10">
+                         		<keyframe t="0.05">
                          			<translate x="0" y="0.43" z="1.33418"/>
                					<rotate a="0" x="1" y="0" z="0"/>
                          		</keyframe>
-                         		<keyframe t="0.15">
+                         		<keyframe t="0.10">
                          			<translate x="0" y="0.43" z="1.33418"/>
                					<rotate a="-85" x="1" y="0" z="0"/>
                          		</keyframe>

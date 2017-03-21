@@ -79,17 +79,17 @@ bool SimpleScene::update(float dt) {
      mCameraNode->pitch(Ogre::Degree(-0.07 * mouseY));
 
      if (Engine::Input()->isButtonDown(VK_A)) {
-          mCameraNode->translate(-5*dt, 0, 0, Ogre::Node::TransformSpace::TS_LOCAL);
+          mCameraNode->translate(-10*dt, 0, 0, Ogre::Node::TransformSpace::TS_LOCAL);
      }
      else if (Engine::Input()->isButtonDown(VK_D)) {
-          mCameraNode->translate(5*dt, 0, 0, Ogre::Node::TransformSpace::TS_LOCAL);
+          mCameraNode->translate(10*dt, 0, 0, Ogre::Node::TransformSpace::TS_LOCAL);
      }
 
      if (Engine::Input()->isButtonDown(VK_W)) {
-          mCameraNode->translate(0, 0, -5*dt, Ogre::Node::TransformSpace::TS_LOCAL);
+          mCameraNode->translate(0, 0, -10*dt, Ogre::Node::TransformSpace::TS_LOCAL);
      }
      else if (Engine::Input()->isButtonDown(VK_S)) {
-          mCameraNode->translate(0, 0, 5*dt, Ogre::Node::TransformSpace::TS_LOCAL);
+          mCameraNode->translate(0, 0, 10*dt, Ogre::Node::TransformSpace::TS_LOCAL);
      }
 
      if (Engine::Input()->wasButtonPressed(VK_SPACE)) {
