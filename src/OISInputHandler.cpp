@@ -18,6 +18,9 @@ OISInputHandler::OISInputHandler(Ogre::RenderWindow* pWindow) {
      mMouse = static_cast<OIS::Mouse*>(mInputManager->createInputObject(OIS::OISMouse, true));
      mMouse->setEventCallback(this);
 
+     mJoyStick = static_cast<OIS::JoyStick*>(mInputManager->createInputObject(OIS::OISJoyStick, true));
+     mJoyStick->setEventCallback(this);
+
      Ogre::WindowEventUtilities::addWindowEventListener(pWindow, this);
      windowResized(pWindow);
 }
@@ -32,17 +35,19 @@ OISInputHandler::~OISInputHandler() {
 }
 
 bool OISInputHandler::keyPressed(const OIS::KeyEvent &evt) {
-     mKeysPressed[evt.key] = true;
+     Button button = mapKeyToButton(evt.key);
+     mKeysPressed[button] = true;
      return true;
 }
 
 bool OISInputHandler::keyReleased(const OIS::KeyEvent &evt) {
-     mKeysReleased[evt.key] = true;
+     Button button = mapKeyToButton(evt.key);
+     mKeysReleased[button] = true;
      return true;
 }
 
 void OISInputHandler::update() {
-     std::map<OIS::KeyCode, bool>::iterator it;
+     std::map<Button, bool>::iterator it;
 
      for (it = mKeysPressed.begin(); it != mKeysPressed.end(); it++) {
           mKeysPressed[it->first]=false;
@@ -51,20 +56,15 @@ void OISInputHandler::update() {
           mKeysReleased[it->first]=false;
      }
 
-     mouseX = 0;
-     mouseY = 0;
+     mAxes[MOUSE_X] = 0;
+     mAxes[MOUSE_Y] = 0;
      mKeyboard->capture();
      mMouse->capture();
+     mJoyStick->capture();
 }
 
 float OISInputHandler::getAxis(Axis axis) {
-     switch (axis) {
-          case MOUSE_X:
-               return mouseX;
-          case MOUSE_Y:
-               return mouseY;
-     }
-     return false;
+     return mAxes[axis];
 }
 
 bool OISInputHandler::isButtonDown(Button button) {
@@ -73,19 +73,17 @@ bool OISInputHandler::isButtonDown(Button button) {
 }
 
 bool OISInputHandler::wasButtonPressed(Button button) {
-     OIS::KeyCode code = mapButtonToKey(button);
-     return mKeysPressed[code];
+     return mKeysPressed[button];
 }
 
 bool OISInputHandler::wasButtonReleased(Button button) {
-     OIS::KeyCode code = mapButtonToKey(button);
-     return mKeysReleased[code];
+     return mKeysReleased[button];
 }
 
 bool OISInputHandler::mouseMoved(const OIS::MouseEvent &evt) {
      OIS::MouseState state = evt.state;
-     mouseX = state.X.rel;
-     mouseY = state.Y.rel;
+     mAxes[MOUSE_X] = state.X.rel;
+     mAxes[MOUSE_Y] = state.Y.rel;
      return true;
 }
 
@@ -110,6 +108,67 @@ void OISInputHandler::windowResized(Ogre::RenderWindow* rw) {
 
 void OISInputHandler::windowClosed(Ogre::RenderWindow* rw) {}
 
+bool OISInputHandler::povMoved(const OIS::JoyStickEvent &evt, int id) {
+     // D_PAD
+     return true;
+}
+
+bool OISInputHandler::axisMoved(const OIS::JoyStickEvent &evt, int id) {
+     int value = evt.state.mAxes[id].abs;
+
+     if (id == 0) {
+          if ( value > -4000 && value < 4000) {
+               mAxes[JS_AXIS_0] = 0;
+          } else {
+               float horizontal =  value / 32767.0;
+               mAxes[JS_AXIS_0] = horizontal;
+          }
+     }
+     else if (id == 1) {
+          if ( value > -4000 && value < 4000) {
+               mAxes[JS_AXIS_1] = 0;
+          } else {
+               float vertical = value / 32767.0;
+               mAxes[JS_AXIS_1] = vertical;
+          }
+     }
+     else if (id == 3) {
+          if ( value > -4000 && value < 4000) {
+               mAxes[JS_AXIS_3] = 0;
+          } else {
+               float x = value / 32767.0;
+               mAxes[JS_AXIS_3] = x;
+          }
+     }
+     else if (id == 4) {
+          if ( value > -4000 && value < 4000) {
+               mAxes[JS_AXIS_4] = 0;
+          } else {
+               float y = value / 32767.0;
+               mAxes[JS_AXIS_4] = y;
+          }
+     }
+     return true;
+}
+
+bool OISInputHandler::buttonPressed(const OIS::JoyStickEvent &evt, int button) {
+     switch (button) {
+          case 0:
+               mKeysPressed[JS_BUTTON_0] = true;
+               break;
+     }
+     return true;
+}
+
+bool OISInputHandler::buttonReleased(const OIS::JoyStickEvent &evt, int button) {
+     switch (button) {
+          case 0:
+               mKeysReleased[JS_BUTTON_0] = true;
+               break;
+     }
+     return true;
+}
+
 OIS::KeyCode OISInputHandler::mapButtonToKey(Button button) {
      switch (button) {
           case VK_ESC:
@@ -126,5 +185,24 @@ OIS::KeyCode OISInputHandler::mapButtonToKey(Button button) {
                return OIS::KC_SPACE;
           default:
                return OIS::KC_UNASSIGNED;
+     }
+}
+
+Button OISInputHandler::mapKeyToButton(OIS::KeyCode key) {
+     switch (key) {
+          case OIS::KC_ESCAPE:
+               return VK_ESC;
+          case OIS::KC_A:
+               return VK_A;
+          case OIS::KC_S:
+               return VK_S;
+          case OIS::KC_D:
+               return VK_D;
+          case OIS::KC_W:
+               return VK_W;
+          case OIS::KC_SPACE:
+               return VK_SPACE;
+          default:
+               return VK_UNASSIGNED;
      }
 }

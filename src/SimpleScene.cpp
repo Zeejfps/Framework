@@ -77,8 +77,14 @@ bool SimpleScene::update(float dt) {
      float mouseX = Engine::Input()->getAxis(MOUSE_X);
      float mouseY = Engine::Input()->getAxis(MOUSE_Y);
 
-     mCameraNode->yaw(Ogre::Degree(-0.07 * mouseX), Ogre::Node::TS_WORLD);
-     mCameraNode->pitch(Ogre::Degree(-0.07 * mouseY));
+     mCameraNode->yaw(Ogre::Degree( -mouseX*dt*3 ), Ogre::Node::TS_WORLD);
+     mCameraNode->pitch(Ogre::Degree(-mouseY * dt*3));
+
+     float jsAxis3 = Engine::Input()->getAxis(JS_AXIS_3);
+     float jsAxis4 = Engine::Input()->getAxis(JS_AXIS_4);
+
+     mCameraNode->yaw(Ogre::Degree( -jsAxis3*dt*50.0), Ogre::Node::TS_WORLD);
+     mCameraNode->pitch(Ogre::Degree(-jsAxis4*dt*50.0));
 
      if (Engine::Input()->isButtonDown(VK_A)) {
           mCameraNode->translate(-10*dt, 0, 0, Ogre::Node::TransformSpace::TS_LOCAL);
@@ -94,12 +100,17 @@ bool SimpleScene::update(float dt) {
           mCameraNode->translate(0, 0, 10*dt, Ogre::Node::TransformSpace::TS_LOCAL);
      }
 
-     if (Engine::Input()->wasButtonPressed(VK_SPACE)) {
+     if (Engine::Input()->wasButtonPressed(VK_SPACE) || Engine::Input()->wasButtonPressed(JS_BUTTON_0)) {
           mAnimations[3]->setTimePosition(0);
           mAnimations[4]->setTimePosition(0);
           mAnimations[3]->setEnabled(true);
           mAnimations[4]->setEnabled(true);
      }
+
+     float horizontal = Engine::Input()->getAxis(JS_AXIS_0);
+     float vertical = Engine::Input()->getAxis(JS_AXIS_1);
+
+     mCameraNode->translate(horizontal*dt*10, 0, vertical*dt*10, Ogre::Node::TransformSpace::TS_LOCAL);
 
      /*if (Engine::Input()->wasButtonPressed(VK_A)) {
           Engine::loadScene(new SpaceScene());

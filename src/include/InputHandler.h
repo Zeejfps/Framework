@@ -2,10 +2,12 @@
 #define INPUT_HANDLER_H
 
 enum Axis {
-     VERTICAL,
-     HORIZONTAL,
      MOUSE_X,
-     MOUSE_Y
+     MOUSE_Y,
+     JS_AXIS_0,
+     JS_AXIS_1,
+     JS_AXIS_3,
+     JS_AXIS_4,
 };
 
 enum Button {
@@ -15,6 +17,8 @@ enum Button {
      VK_D,
      VK_W,
      VK_SPACE,
+     JS_BUTTON_0,
+     VK_UNASSIGNED,
 };
 
 class InputHandler {
