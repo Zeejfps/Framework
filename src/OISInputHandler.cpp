@@ -2,7 +2,9 @@
 #include <sstream>
 #include <OISInputHandler.h>
 
-OISInputHandler::OISInputHandler(Ogre::RenderWindow* pWindow) {
+OISInputHandler::OISInputHandler(Ogre::RenderWindow* pWindow)
+: mKeyboard(NULL), mMouse(NULL), mJoyStick(NULL)
+{
      OIS::ParamList pl;
      std::ostringstream windowHndStr;
 
@@ -18,8 +20,10 @@ OISInputHandler::OISInputHandler(Ogre::RenderWindow* pWindow) {
      mMouse = static_cast<OIS::Mouse*>(mInputManager->createInputObject(OIS::OISMouse, true));
      mMouse->setEventCallback(this);
 
-     mJoyStick = static_cast<OIS::JoyStick*>(mInputManager->createInputObject(OIS::OISJoyStick, true));
-     mJoyStick->setEventCallback(this);
+     if (mInputManager->getNumberOfDevices(OIS::OISJoyStick) > 0) {
+          mJoyStick = static_cast<OIS::JoyStick*>(mInputManager->createInputObject(OIS::OISJoyStick, true));
+          mJoyStick->setEventCallback(this);
+     }
 
      Ogre::WindowEventUtilities::addWindowEventListener(pWindow, this);
      windowResized(pWindow);
@@ -29,6 +33,7 @@ OISInputHandler::~OISInputHandler() {
      if(mInputManager) {
           mInputManager->destroyInputObject(mMouse);
           mInputManager->destroyInputObject(mKeyboard);
+          mInputManager->destroyInputObject(mJoyStick);
           OIS::InputManager::destroyInputSystem(mInputManager);
           mInputManager = NULL;
      }
@@ -60,7 +65,10 @@ void OISInputHandler::update() {
      mAxes[MOUSE_Y] = 0;
      mKeyboard->capture();
      mMouse->capture();
-     mJoyStick->capture();
+     if (mJoyStick != NULL) {
+          mJoyStick->capture();
+     }
+
 }
 
 float OISInputHandler::getAxis(Axis axis) {
@@ -171,18 +179,22 @@ bool OISInputHandler::buttonReleased(const OIS::JoyStickEvent &evt, int button) 
 
 OIS::KeyCode OISInputHandler::mapButtonToKey(Button button) {
      switch (button) {
-          case VK_ESC:
+          case KC_ESC:
                return OIS::KC_ESCAPE;
-          case VK_A:
+          case KC_A:
                return OIS::KC_A;
-          case VK_S:
+          case KC_S:
                return OIS::KC_S;
-          case VK_D:
+          case KC_D:
                return OIS::KC_D;
-          case VK_W:
+          case KC_W:
                return OIS::KC_W;
-          case VK_SPACE:
+          case KC_E:
+               return OIS::KC_E;
+          case KC_SPACE:
                return OIS::KC_SPACE;
+          case KC_ENTER:
+               return OIS::KC_RETURN;
           default:
                return OIS::KC_UNASSIGNED;
      }
@@ -191,18 +203,22 @@ OIS::KeyCode OISInputHandler::mapButtonToKey(Button button) {
 Button OISInputHandler::mapKeyToButton(OIS::KeyCode key) {
      switch (key) {
           case OIS::KC_ESCAPE:
-               return VK_ESC;
+               return KC_ESC;
           case OIS::KC_A:
-               return VK_A;
+               return KC_A;
           case OIS::KC_S:
-               return VK_S;
+               return KC_S;
           case OIS::KC_D:
-               return VK_D;
+               return KC_D;
           case OIS::KC_W:
-               return VK_W;
+               return KC_W;
+          case OIS::KC_E:
+               return KC_E;
           case OIS::KC_SPACE:
-               return VK_SPACE;
+               return KC_SPACE;
+          case OIS::KC_RETURN:
+               return KC_ENTER;
           default:
-               return VK_UNASSIGNED;
+               return KC_UNASSIGNED;
      }
 }

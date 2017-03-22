@@ -1,5 +1,6 @@
 #include "Engine.h"
 #include "SimpleScene.h"
+#include "SpaceScene.h"
 #include <OgreEntity.h>
 
 SimpleScene::SimpleScene():
@@ -70,7 +71,7 @@ bool SimpleScene::update(float dt) {
           mAnimations[i]->addTime(dt);
      }
 
-     if (Engine::Input()->wasButtonPressed(VK_ESC)) {
+     if (Engine::Input()->wasButtonPressed(KC_ESC)) {
           return false;
      }
 
@@ -86,21 +87,21 @@ bool SimpleScene::update(float dt) {
      mCameraNode->yaw(Ogre::Degree( -jsAxis3*dt*50.0), Ogre::Node::TS_WORLD);
      mCameraNode->pitch(Ogre::Degree(-jsAxis4*dt*50.0));
 
-     if (Engine::Input()->isButtonDown(VK_A)) {
+     if (Engine::Input()->isButtonDown(KC_A)) {
           mCameraNode->translate(-10*dt, 0, 0, Ogre::Node::TransformSpace::TS_LOCAL);
      }
-     else if (Engine::Input()->isButtonDown(VK_D)) {
+     if (Engine::Input()->isButtonDown(KC_D)) {
           mCameraNode->translate(10*dt, 0, 0, Ogre::Node::TransformSpace::TS_LOCAL);
      }
 
-     if (Engine::Input()->isButtonDown(VK_W)) {
+     if (Engine::Input()->isButtonDown(KC_W)) {
           mCameraNode->translate(0, 0, -10*dt, Ogre::Node::TransformSpace::TS_LOCAL);
      }
-     else if (Engine::Input()->isButtonDown(VK_S)) {
+     else if (Engine::Input()->isButtonDown(KC_S)) {
           mCameraNode->translate(0, 0, 10*dt, Ogre::Node::TransformSpace::TS_LOCAL);
      }
 
-     if (Engine::Input()->wasButtonPressed(VK_SPACE) || Engine::Input()->wasButtonPressed(JS_BUTTON_0)) {
+     if (Engine::Input()->wasButtonPressed(KC_SPACE) || Engine::Input()->wasButtonPressed(JS_BUTTON_0)) {
           mAnimations[3]->setTimePosition(0);
           mAnimations[4]->setTimePosition(0);
           mAnimations[3]->setEnabled(true);
@@ -112,8 +113,8 @@ bool SimpleScene::update(float dt) {
 
      mCameraNode->translate(horizontal*dt*10, 0, vertical*dt*10, Ogre::Node::TransformSpace::TS_LOCAL);
 
-     /*if (Engine::Input()->wasButtonPressed(VK_A)) {
+     if (Engine::Input()->wasButtonPressed(KC_ENTER)) {
           Engine::loadScene(new SpaceScene());
-     }*/
+     }
      return true;
 }

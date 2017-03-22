@@ -5,7 +5,7 @@
 int main() {
      try {
           Engine::init();
-          Engine::loadScene(new SimpleScene());
+          Engine::loadScene(new SpaceScene());
           Engine::launch();
      }
      catch(Ogre::Exception e) {

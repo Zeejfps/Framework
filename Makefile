@@ -10,13 +10,14 @@
 CXX := g++
 CXXFLAGS := -Wall -c
 LDFLAGS := -lboost_system -lOgreMain -ltinyxml -lOIS
-#LDFLAGS := -lboost_system-mgw51-mt-1_63 -lOgreMain -ltinyxml
+#LDFLAGS := -lboost_system-mgw51-mt-1_63 -lOgreMain -ltinyxml -lOIS
 
 ############## PATHS FOR WINDOWS ###############
 ################################################
 #OGRE_PATH := J:/Game_Engine/Ogre-1.8.1
 #BOOST_PATH := J:/Game_Engine/boost_1_63_0
 #TINYXML_PATH := J:/Game_Engine/tinyxml_2.6.2
+#OIS_PATH := J:/Game_Engine/ois
 ################################################
 
 OGRE_PATH := /home/zeejfps/Programming/Game-Engine/libs/ogre_src_v1-8-1

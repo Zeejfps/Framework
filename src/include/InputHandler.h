@@ -11,14 +11,16 @@ enum Axis {
 };
 
 enum Button {
-     VK_ESC,
-     VK_A,
-     VK_S,
-     VK_D,
-     VK_W,
-     VK_SPACE,
+     KC_ESC,
+     KC_A,
+     KC_S,
+     KC_D,
+     KC_W,
+     KC_E,
+     KC_SPACE,
+     KC_ENTER,
      JS_BUTTON_0,
-     VK_UNASSIGNED,
+     KC_UNASSIGNED,
 };
 
 class InputHandler {

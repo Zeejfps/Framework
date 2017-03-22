@@ -19,7 +19,7 @@ bool SpaceScene::onLoad() {
 }
 
 bool SpaceScene::update(float dt) {
-     if (Engine::Input()->wasButtonPressed(VK_ESC)) {
+     if (Engine::Input()->wasButtonPressed(KC_ESC)) {
           return false;
      }
 
@@ -29,7 +29,8 @@ bool SpaceScene::update(float dt) {
      m_player->yaw(Ogre::Degree(-0.07 * mouseX), Ogre::Node::TS_WORLD);
      m_player->pitch(Ogre::Degree(-0.07 * mouseY));
 
-     if (Engine::Input()->wasButtonPressed(VK_A)) {
+     if (Engine::Input()->wasButtonPressed(KC_ENTER)) {
+          std::cout << "Test?\n";
           Engine::loadScene(new SimpleScene());
      }
 
